@@ -55,7 +55,7 @@ void printCarte(const carte& c){
 			std::cout << '9';
 			break;
 		case X:
-			std::cout << "10";
+			std::cout << 'd';
 			break;
 		case J:
 			std::cout << 'J';
@@ -75,16 +75,16 @@ void printCarte(const carte& c){
 	}
 	switch (c.couleur){
 		case trefle:
-			std::cout << 't';
+			std::cout << 'T';
 			break;
 		case pique:
-			std::cout << 'p';
+			std::cout << 'P';
 			break;
 		case carreau:
-			std::cout << 'k';
+			std::cout << 'K';
 			break;
 		case coeur:
-			std::cout << 'c';
+			std::cout << 'C';
 			break;
 		default:
 			std::cout << '?';
@@ -104,16 +104,64 @@ int main(){
 		}
 	}
 
-	printCarte(jc[0]);
-	for (int i=1; i<52; i++){
-		if (!(i%13)){
-			std::cout << std::endl;
-		}else{
-			std::cout << " - ";
-		}
-		printCarte(jc[i]);
+	// printCarte(jc[0]);
+	// for (int i=1; i<52; i++){
+	// 	if (!(i%13)){
+	// 		std::cout << std::endl;
+	// 	}else{
+	// 		std::cout << " - ";
+	// 	}
+	// 	printCarte(jc[i]);
+	// }
+	// std::cout << std::endl;
+
+	int nvPalier[4];
+	nvPalier[trefle] = 5;
+	nvPalier[pique] = 6;
+	nvPalier[coeur] = 3;
+	nvPalier[carreau] = 4;
+
+	carte cartePalier[5];
+	cartePalier[1].valeur = II;
+	cartePalier[1].couleur = trefle;
+	cartePalier[2].valeur = IV;
+	cartePalier[2].couleur = pique;
+	cartePalier[3].valeur = J;
+	cartePalier[3].couleur = pique;
+	cartePalier[4].valeur = X;
+	cartePalier[4].couleur = coeur;
+	cartePalier[5].valeur = IV;
+	cartePalier[5].couleur = carreau;
+
+	std::cout << "👑|";
+	if (nvPalier[0]>=6){
+		std::cout << "■";
+	}else{
+		std::cout << "_";
 	}
-	std::cout << std::endl;
+
+	for (int i=1; i<4; i++){
+		if (nvPalier[i]==6){
+			std::cout << "_■";
+		}else{
+			std::cout << "__";
+		}
+	}
+	std::cout << "|" << std::endl;
+
+	for (int i=5; i>0; i--){
+		printCarte(cartePalier[i]);
+		std::cout << '|';
+		for (int y=0; y<4; y++){
+			if (nvPalier[y]>=i){
+				std::cout << "■|";
+			}else{
+				std::cout << " |";
+			}
+		}
+		std::cout << std::endl;
+	}
+	std::cout << "‾‾|T|P|C|K|" << std::endl;
 
 	return 0;
 }
