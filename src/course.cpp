@@ -122,16 +122,16 @@ int main(){
 	nvPalier[carreau] = 4;
 
 	carte cartePalier[5];
-	cartePalier[1].valeur = II;
-	cartePalier[1].couleur = trefle;
-	cartePalier[2].valeur = IV;
+	cartePalier[0].valeur = II;
+	cartePalier[0].couleur = trefle;
+	cartePalier[1].valeur = IV;
+	cartePalier[1].couleur = pique;
+	cartePalier[2].valeur = J;
 	cartePalier[2].couleur = pique;
-	cartePalier[3].valeur = J;
-	cartePalier[3].couleur = pique;
-	cartePalier[4].valeur = X;
-	cartePalier[4].couleur = coeur;
-	cartePalier[5].valeur = IV;
-	cartePalier[5].couleur = carreau;
+	cartePalier[3].valeur = X;
+	cartePalier[3].couleur = coeur;
+	cartePalier[4].valeur = IV;
+	cartePalier[4].couleur = carreau;
 
 	std::cout << "👑|";
 	if (nvPalier[0]>=6){
@@ -149,7 +149,7 @@ int main(){
 	}
 	std::cout << "|" << std::endl;
 
-	for (int i=5; i>0; i--){
+	for (int i=4; i>0; i--){
 		printCarte(cartePalier[i]);
 		std::cout << '|';
 		for (int y=0; y<4; y++){
