@@ -1,25 +1,61 @@
-# gcc for c g++ foc c++
-compiler = g++
-#obj = build/main.o build/monster.o
-# -g for debug mode (for gbd) -O3 for release mod
-mode = -g
-flag = -Wall -Weffc++ -Wextra -Wsign-conversion $(state)
+PROJECTNAME=OMTRTA
+BIN=build/$(PROJECTNAME)
+CC=g++
 
-build/course : build/course.o
-	$(compiler) $(flag) -o build/course build/course.o
+EXT=cpp
+INCDIRS=include lib
 
-build/course.o : src/course.cpp
-	$(compiler) $(flag) -c src/course.cpp -o build/course.o
+# make mode=release
+ifeq ($(mode), release)
+	OPT=-O3
+else
+	OPT=-Og -g
+endif
+DEPFLAGS=-MP -MD
+FLAGS=-Wall -Wextra $(foreach F,$(INCDIRS),-I$(F)) $(OPT) $(DEPFLAGS)
 
-.PHONY : clean
+SRC=$(shell find . -name "*.$(EXT)" -path "./src/*")
+OBJ=$(subst ./src/,./build/,$(SRC:.$(EXT)=.o))
+DEP=$(OBJ:.o=.d)
+TEST=$(shell find . -name "*.$(EXT)" -path "./test/*")
+
+$(shell mkdir -p build)
+
+all : $(BIN)
+
+$(BIN) : $(OBJ)
+	$(CC) $(FLAGS) -o $@ $^
+
+-include $(DEP)
+
+build/%.o : src/%.$(EXT)
+	@mkdir -p $(@D)
+	$(CC) $(FLAGS) -o $@ -c $<
+
+run : all
+	./$(BIN)
+
 clean :
-	rm -r build/*
+	rm -rf build/*
 
-.PHONY : run
-run : build/course
-	./build/course
+# make test file=testGenID.cpp
+test : $(OBJ)
+	$(CC) $(FLAGS) -o build/$(file:.$(EXT)=) test/$(file)
+	./build/$(file:.$(EXT)=)
 
-.PHONY : analyse
-analyse :
-	cppcheck --enable=all --suppress=missingIncludeSystem -I include/ .
+alltest :
+	@for f in $(subst ./test/,,$(TEST)); do make -s test file=$$f; done
+
+# unzip : mkdir exemple && tar -xvf exemple.tgz -C exemple
+dist : clean
+	tar zcvf build/$(PROJECTNAME).tgz .
+
+check :
+	cppcheck --enable=all --suppress=missingIncludeSystem $(foreach I,$(INCDIRS),-I$(I)) .
 	flawfinder .
+
+info :
+	$(info put what ever)
+	@echo you want
+
+.PHONY : all run clean test alltest dist check info
