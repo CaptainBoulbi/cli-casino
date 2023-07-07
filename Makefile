@@ -1,4 +1,4 @@
-PROJECTNAME=OMTRTA
+PROJECTNAME=cli-casino
 BIN=build/$(PROJECTNAME)
 CC=g++
 
