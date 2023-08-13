@@ -13,7 +13,7 @@ class JDC{
 
 		void init(){
 			this->len = 52;
-			int index = 0;
+			int index;
 			for (int i=0; i<4; i++){
 				for (int y=0; y<13; y++){
 					index = (i*13)+y;
@@ -65,7 +65,7 @@ class JDC{
 			return this->jdc[index];
 		}
 
-		std::string valeur(carte c){
+		static std::string valeur(carte c){
 			if ((int)c.valeur < 10) return std::to_string(c.valeur);
 			switch(c.valeur){
 				case T:
@@ -83,7 +83,7 @@ class JDC{
 			}
 		}
 
-		std::string couleur(carte c){
+		static std::string couleur(carte c){
 			switch(c.couleur){
 				case PIC:
 					return "♠";
@@ -100,6 +100,12 @@ class JDC{
 
 		std::string* ascii(carte c){
 			std::string* s = new std::string[3];
+			//if (c == NULL){
+			//	s[0] = "\033[38;5;235m╭──╮";
+			//	s[1] = "│ȸȹ│";
+			//	s[2] = "╰──╯\033[0m";
+			//	return s;
+			//}
 			std::string co = this->couleur(c);
 			s[0] = "\033[38;5;235m╭──╮";
 			if (co == "♥" || co == "♦") s[1] = "│\033[31m"+this->valeur(c)+co+"\033[38;5;235m│";
