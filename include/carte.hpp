@@ -18,7 +18,7 @@ enum VCarte{
 };
 
 enum CCarte{
-	PIC,
+	PIC = 1,
 	CARREAU,
 	COEUR,
 	TREFLE,
@@ -27,6 +27,6 @@ enum CCarte{
 struct carte{
 	VCarte valeur;
 	CCarte couleur;
-};
+}CARTERETOURNE = {VCarte(0), CCarte(0)};
 
 #endif

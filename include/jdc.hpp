@@ -65,54 +65,54 @@ class JDC{
 			return this->jdc[index];
 		}
 
-		static std::string valeur(carte c){
-			if ((int)c.valeur < 10) return std::to_string(c.valeur);
+		static char valeur(carte c){
+			if ((int)c.valeur >= 1 && (int)c.valeur < 10) return char(c.valeur+48);
 			switch(c.valeur){
 				case T:
-					return "T";
+					return 'T';
 				case J:
-					return "J";
+					return 'J';
 				case Q:
-					return "Q";
+					return 'Q';
 				case K:
-					return "K";
+					return 'K';
 				case A:
-					return "A";
+					return 'A';
 				default:
-					return "?";
+					return '?';
 			}
 		}
 
-		static std::string couleur(carte c){
+		static char couleur(carte c){
 			switch(c.couleur){
 				case PIC:
-					return "♠";
+					return 'P';
 				case COEUR:
-					return "♥";
+					return 'C';
 				case TREFLE:
-					return "♣";
+					return 'T';
 				case CARREAU:
-					return "♦";
+					return 'K';
 				default:
-					return "?";
+					return '?';
 			}
 		};
 
-		std::string* ascii(carte c){
-			std::string* s = new std::string[3];
-			//if (c == NULL){
-			//	s[0] = "\033[38;5;235m╭──╮";
-			//	s[1] = "│ȸȹ│";
-			//	s[2] = "╰──╯\033[0m";
-			//	return s;
-			//}
-			std::string co = this->couleur(c);
-			s[0] = "\033[38;5;235m╭──╮";
-			if (co == "♥" || co == "♦") s[1] = "│\033[31m"+this->valeur(c)+co+"\033[38;5;235m│";
-			else s[1] = "│\033[30m"+this->valeur(c)+co+"\033[38;5;235m│";
-			s[2] = "╰──╯";
-			return s;
-		};
+		//std::string* ascii(carte c){
+		//	std::string* s = new std::string[3];
+		//	//if (c == NULL){
+		//	//	s[0] = "\033[38;5;235m╭──╮";
+		//	//	s[1] = "│ȸȹ│";
+		//	//	s[2] = "╰──╯\033[0m";
+		//	//	return s;
+		//	//}
+		//	std::string co = this->couleur(c);
+		//	s[0] = "\033[38;5;235m╭──╮";
+		//	if (co == "♥" || co == "♦") s[1] = "│\033[31m"+this->valeur(c)+co+"\033[38;5;235m│";
+		//	else s[1] = "│\033[30m"+this->valeur(c)+co+"\033[38;5;235m│";
+		//	s[2] = "╰──╯";
+		//	return s;
+		//};
 
 		int length(){
 			return this->len;

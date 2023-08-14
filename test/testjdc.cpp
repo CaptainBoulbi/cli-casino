@@ -28,11 +28,14 @@ int main(){
 	jdc.display();
 	std::cout << jdc.length() << std::endl;
     
-	std::cout << "bottom = " <<  jdc.valeur(jdc.get(0)) <<  jdc.couleur(jdc.get(0)) << std::endl;
-	std::cout << "2 = " <<  jdc.valeur(jdc.get(2)) <<  jdc.couleur(jdc.get(2)) << std::endl;
+	c = jdc.get(0);
+	std::cout << "bottom = " << jdc.valeur(c) << jdc.couleur(c) << std::endl;
+	c = jdc.get(2);
+	std::cout << "2 = " << jdc.valeur(c) << jdc.couleur(c) << std::endl;
     
-	std::cout << "top = " << jdc.valeur(jdc.top()) << jdc.couleur(jdc.top()) << std::endl;
-	std::cout << jdc.couleur(jdc.top()).length() << std::endl;
+	c = jdc.top();
+	std::cout << "top = " << jdc.valeur(c) << jdc.couleur(c) << std::endl;
+	//std::cout << jdc.couleur(jdc.top()).length() << std::endl;
 
 	//std::cout << "\033[1;48;5;22m" << std::endl;
 	//for (int y=0; y<52; y++){

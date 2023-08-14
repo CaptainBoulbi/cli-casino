@@ -3,7 +3,9 @@
 #include "jdc.hpp"
 
 int main(){
-	Screen s(11, 5);
+	int row = 5;
+	int col = 11;
+	Screen s(row, col);
 	s.background();
 	s.display();
 
@@ -12,12 +14,10 @@ int main(){
 	jdc.shuffle();
 
 	point<int> p = {0, 0};
-	//sprite card = {jdc.ascii(jdc.top()), 3, 4};
 	s.addCard(p, jdc.top());
+	s.display();
 
-	//card = {jdc.ascii(NULL), 3};
-	p = {0, 12};
-	s.addCard(p, jdc.get(0));
-
+	p = {col-4, row-3};
+	s.addCard(p, CARTERETOURNE);
 	s.display();
 }
