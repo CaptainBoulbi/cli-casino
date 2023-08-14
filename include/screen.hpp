@@ -3,6 +3,9 @@
 
 #include <iostream>
 #include "jdc.hpp"
+#include <sys/ioctl.h>
+#include <termios.h>
+//#include <unistd.h>
 
 template <typename T>
 struct point{
@@ -21,6 +24,8 @@ class Screen{
 		char** screen;
 
 		Screen(int row, int col){
+			puts("\033[?1049h\033[H"); // alt screen
+			puts("\033[?25l"); // inv cursor
 			this->col = col;
 			this->row = row;
 
@@ -35,28 +40,38 @@ class Screen{
 				delete this->screen[i];
 			}
 			delete this->screen;
+			puts("\033[?1049l"); // ~ alt screen
+			puts("\033[?25h"); // ~ inv cursor
 		};
 
 		void background(){
 			for (int i=0; i<row; i++){
 				for (int y=0; y<col; y++){
+					if (this->screen[i][y]) continue;
 					if (y%2 && i%2) this->screen[i][y] = 'X';
 					else if (!(i%2) && !(y%2)) this->screen[i][y] = 'X';
 					else this->screen[i][y] = 'O';
-					//this->screen[i][y] = 'X';
 				}
 			}
 		};
 
 		void display(){
-			std::cout << "\033[1;48;5;22m" << std::endl;
+			puts("\033[2J"); // clear screen
+			puts("\033[1;48;5;22m"); // bold + background green
+
+			point<int> coord = this->size();
+			coord.x = coord.x/2 - col/2;
+			coord.y = coord.y/2 - row/2;
+			printf("\033[%d;%dH", coord.y, coord.x);
+
 			for (int i=0; i<row; i++){
 				for (int y=0; y<col; y++){
-					std::cout << this->screen[i][y];
+					if (this->screen[i][y]) std::cout << this->screen[i][y];
+					else std::cout << ' ';
 				}
-				std::cout << std::endl;
+				printf("\033[%d;%dH", coord.y+i+1, coord.x);
 			}
-			std::cout << "\033[0m" << std::endl;
+			puts("\033[0m"); // reset
 		}
 
 		void addCard(point<int> p, carte c){
@@ -81,11 +96,20 @@ class Screen{
 
 		int ligne(){
 			return this->row;
-		}
+		};
 
 		int colone(){
 			return this->col;
-		}
+		};
+
+		static point<int> size(){
+			point<int> p;
+			struct winsize size;
+			ioctl(1, TIOCGWINSZ, &size);
+			p.x = size.ws_col;
+			p.y = size.ws_row;
+			return p;
+		};
 	private:
 		int row;
 		int col;
