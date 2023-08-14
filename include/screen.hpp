@@ -92,7 +92,14 @@ class Screen{
 			this->screen[p.x+1][p.y+2] = JDC::couleur(c);
 		};
 
-		//void addSprite(point<int> p, sprite s){};
+		void addSprite(point<int> p, sprite s){
+			for (int i=0; i<s.row; i++){
+				for (int y=0; y<s.col; y++){
+					if (!s.data[i][y]) continue;
+					this->screen[p.x+i][p.y+y] = s.data[i][y];
+				}
+			}
+		};
 
 		int ligne(){
 			return this->row;
