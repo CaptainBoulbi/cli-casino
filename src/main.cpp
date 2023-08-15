@@ -9,6 +9,7 @@
 #include "screen.hpp"
 #include "jdc.hpp"
 #include "machine.hpp"
+#include "course.hpp"
 
 void menu(){
 	static Screen s(7, 18);
@@ -38,18 +39,15 @@ void selectGame(){
 	switch (input){
 		case '1':
 			//blackjack();
-			std::cout << "blackjack" << std::endl;
 			break;
 		case '2':
 			//roulette();
-			std::cout << "roulette" << std::endl;
 			break;
 		case '3':
 			machine();
 			break;
 		case '4':
-			//course();
-			std::cout << "course" << std::endl;
+			course();
 			break;
 	}
 	if (input != 'q'){

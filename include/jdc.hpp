@@ -17,7 +17,7 @@ class JDC{
 			for (int i=0; i<4; i++){
 				for (int y=0; y<13; y++){
 					index = (i*13)+y;
-					this->jdc[index].couleur = (CCarte)i;
+					this->jdc[index].couleur = (CCarte)(i+1);
 					this->jdc[index].valeur = (VCarte)(y+2);
 				}
 			}

@@ -41,7 +41,7 @@ class Screen{
 			}
 			delete this->screen;
 			puts("\033[?1049l"); // ~ alt screen
-			puts("\033[?25h"); // ~ inv cursor
+			//puts("\033[?25h"); // ~ inv cursor
 		};
 
 		void background(){
