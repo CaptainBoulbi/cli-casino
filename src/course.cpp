@@ -146,6 +146,25 @@ void course(){
 
 		if (Ppic.x <= palier && Pcoeur.x <= palier && Pcarreau.x <= palier && Ptrefle.x <= palier){
 			carte p = tirer(&j);
+
+			switch(palier){
+				case Ppal1.x:
+					sc.addCard(Ppal1, p);
+					break;
+				case Ppal2.x:
+					sc.addCard(Ppal2, p);
+					break;
+				case Ppal3.x:
+					sc.addCard(Ppal3, p);
+					break;
+				case Ppal4.x:
+					sc.addCard(Ppal4, p);
+					break;
+			}
+
+			sc.display();
+			sleep(1);
+
 			switch (p.couleur){
 				case PIC:
 					sc.addSprite(Ppic, vide);
@@ -168,22 +187,6 @@ void course(){
 					sc.addCard(Ptrefle, {A, TREFLE});
 					break;
 			}
-
-			switch(palier){
-				case Ppal1.x:
-					sc.addCard(Ppal1, p);
-					break;
-				case Ppal2.x:
-					sc.addCard(Ppal2, p);
-					break;
-				case Ppal3.x:
-					sc.addCard(Ppal3, p);
-					break;
-				case Ppal4.x:
-					sc.addCard(Ppal4, p);
-					break;
-			}
-
 			palier -= HCASE;
 		}
 
