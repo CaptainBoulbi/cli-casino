@@ -48,7 +48,12 @@ alltest :
 
 # unzip : mkdir exemple && tar -xvf exemple.tgz -C exemple
 dist : clean
-	tar zcvf build/$(PROJECTNAME).tgz .
+	$(info /!\ project folder has to be named $(PROJECTNAME) /!\ )
+	cd .. && tar zcvf $(PROJECTNAME)/build/$(PROJECTNAME).tgz $(PROJECTNAME) >/dev/null
+
+install : dist $(BIN)
+	cp build/$(PROJECTNAME).tgz $$HOME/dev/opt/archive
+	cp $(BIN) $$HOME/dev/opt/built
 
 check :
 	cppcheck --enable=all --suppress=missingIncludeSystem $(foreach I,$(INCDIRS),-I$(I)) .
@@ -70,4 +75,4 @@ c : check
 
 p : push
 
-.PHONY : all run clean test alltest dist check info push
+.PHONY : all run clean test alltest dist install check info push
