@@ -60,10 +60,9 @@ int main(){
 		sp4.data[i] = new char[21];
 	}
 
-	float x, y;
 	for (float i=0; i<2*3.14; i+=0.1){
-		x = (std::cos(i)+1) * 5;
-		y = (std::sin(i)+1) * 10;
+		float x = (std::cos(i)+1) * 5;
+		float y = (std::sin(i)+1) * 10;
 		sp4.data[(int)x][(int)y] = '@';
 	}
     

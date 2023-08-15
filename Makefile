@@ -1,4 +1,4 @@
-PROJECTNAME=MasterMakefile
+PROJECTNAME=cli-casino
 BIN=build/$(PROJECTNAME)
 CC=g++
 
