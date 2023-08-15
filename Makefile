@@ -40,8 +40,8 @@ clean :
 
 # make test file=testGenID.cpp
 test : $(OBJ)
-	$(CC) $(FLAGS) -o build/$(file:.$(EXT)=) test/$(file)
-	./build/$(file:.$(EXT)=)
+	$(CC) $(FLAGS) -o build/$(file) test/$(file).$(EXT)
+	./build/$(file)
 
 alltest :
 	@for f in $(subst ./test/,,$(TEST)); do make -s test file=$$f; done
@@ -58,4 +58,16 @@ info :
 	$(info put what ever)
 	@echo you want
 
-.PHONY : all run clean test alltest dist check info
+push :
+	git push gh
+	git push bbsrv
+
+# alias
+
+r : run
+
+c : check
+
+p : push
+
+.PHONY : all run clean test alltest dist check info push
