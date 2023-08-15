@@ -53,7 +53,7 @@ dist : clean
 
 install : dist $(BIN)
 	cp build/$(PROJECTNAME).tgz $$HOME/dev/opt/archive
-	cp $(BIN) $$HOME/dev/opt/built
+	mv $(BIN) $$HOME/dev/opt/built
 
 check :
 	cppcheck --enable=all --suppress=missingIncludeSystem $(foreach I,$(INCDIRS),-I$(I)) .
